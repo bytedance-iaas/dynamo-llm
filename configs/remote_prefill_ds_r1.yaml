@@ -1,0 +1,13 @@
+PrefillWorker:
+  model: /data/models/DeepSeek-R1
+  served_model_name: deepseek-ai/DeepSeek-R1
+  kv-transfer-config: '{"kv_connector":"DynamoNixlConnector"}'
+  block-size: 64
+  max-model-len: 131072
+  max-num-batched-tokens: 131072
+  tensor-parallel-size: 16
+  enforce-eager: true
+  ServiceArgs:
+    workers: 1
+    resources:
+      gpu: 16

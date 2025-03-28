@@ -1,0 +1,31 @@
+Frontend:
+  served_model_name: deepseek-ai/DeepSeek-R1
+  endpoint: dynamo.Processor.chat/completions
+  port: 8000
+
+Processor:
+  model: /data/models/DeepSeek-R1
+  router: round-robin
+  trust-remote-code: true
+
+VllmWorker:
+  # vllm enging args
+  model: /data/models/DeepSeek-R1
+  served_model_name: deepseek-ai/DeepSeek-R1
+  kv-transfer-config: '{"kv_connector":"DynamoNixlConnector"}'
+  trust-remote-code: true
+  block-size: 64
+  max-model-len: 131072
+  max-num-batched-tokens: 131072
+  num-speculative-tokens: 1  # enable MTP
+  tensor-parallel-size: 16
+  enforce-eager: false # enable cudagraph
+  gpu-memory-utilization: 0.90
+  # dynamo args
+  remote-prefill: true
+  conditional-disagg: true
+  max-local-prefill-length: 10
+  ServiceArgs:
+    workers: 1
+    resources:
+      gpu: 16
