@@ -2,6 +2,7 @@ PrefillWorker:
   model: /data/models/DeepSeek-R1
   served_model_name: deepseek-ai/DeepSeek-R1
   kv-transfer-config: '{"kv_connector":"DynamoNixlConnector"}'
+  trust-remote-code: true
   block-size: 64
   max-model-len: 131072
   max-num-batched-tokens: 131072
