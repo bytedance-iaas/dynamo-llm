@@ -1,0 +1,14 @@
+PrefillWorker:
+  model: /data/models/Llama-3.1-8B-Instruct
+  served_model_name: meta-llama/Llama-3.1-8B-Instruct
+  kv-transfer-config: '{"kv_connector":"DynamoNixlConnector"}'
+  trust-remote-code: true
+  block-size: 64
+  max-model-len: 32768
+  max-num-batched-tokens: 32768
+  tensor-parallel-size: 1
+  enforce-eager: true
+  ServiceArgs:
+    workers: 1
+    resources:
+      gpu: 1
