@@ -1,17 +1,17 @@
 Frontend:
-  served_model_name: meta-llama/Llama-3.1-8B-Instruct
+  served_model_name: Qwen/QwQ-32B
   endpoint: dynamo.Processor.chat/completions
   port: 8000
 
 Processor:
-  model: /data/models/Llama-3.1-8B-Instruct
+  model: /data/models/QwQ-32B
   router: round-robin
   trust-remote-code: true
 
 VllmWorker:
   # vllm enging args
-  model: /data/models/Llama-3.1-8B-Instruct
-  served_model_name: meta-llama/Llama-3.1-8B-Instruct
+  model: /data/models/QwQ-32B
+  served_model_name: Qwen/QwQ-32B
   kv-transfer-config: '{"kv_connector":"DynamoNixlConnector"}'
   trust-remote-code: true
   block-size: 64
@@ -19,9 +19,8 @@ VllmWorker:
   max-num-batched-tokens: 32768
     # speculative-model: /data/models/Llama-3.2-1B
     # num-speculative-tokens: 5  # enable MTP
-  tensor-parallel-size: 4
-  enforce-eager: true
-  gpu-memory-utilization: 0.90
+  tensor-parallel-size: 2
+  enforce-eager: false # enable cudagraph
   # dynamo args
   remote-prefill: true
   conditional-disagg: true
@@ -29,4 +28,4 @@ VllmWorker:
   ServiceArgs:
     workers: 1
     resources:
-      gpu: 4
+      gpu: 2
